@@ -2,445 +2,326 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Lunna Pijama — Noites tranquilas & Dias preguiçosos. Loja de pijamas em Teresina, PI." />
-  <title>Lunna Pijama</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lunna Pijama — Pijamas em Teresina, PI</title>
+  <meta name="description" content="Lunna Pijama — Noites tranquilas & Dias preguiçosos. Pijamas macios e estampas fofas em Teresina, PI. Pedidos pelo WhatsApp e envio para todo o Brasil." />
+  <meta name="theme-color" content="#fbdde8" />
+  <link rel="canonical" href="https://lunnapijama.com.br/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Lunna Pijama" />
+  <meta property="og:title" content="Lunna Pijama — Noites tranquilas & Dias preguiçosos" />
+  <meta property="og:description" content="Pijamas macios e estampas fofas, escolhidos a dedo em Teresina. Peça pelo WhatsApp e receba em casa, em todo o Brasil." />
+  <meta property="og:url" content="https://lunnapijama.com.br/" />
+  <meta property="og:image" content="https://lunnapijama.com.br/assets/img/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Cliente sorrindo com pijama longo azul estampa ovelhinha" />
+  <meta name="twitter:card" content="summary_large_image" />
+
   <link rel="icon" type="image/png" href="logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --rosa:      #e87faa;
-      --azul:      #4db8c8;
-      --creme:     #fff8fc;
-      --escuro:    #3a2a35;
-      --cinza:     #6a5763;
-      --wpp:       #25a244;
-      --rosa-bg:   #f9c6d8;
-      --rosa-pale: #fdeef5;
-    }
-
-    @property --ba {
-      syntax: '<angle>';
-      initial-value: 135deg;
-      inherits: false;
-    }
-
-    html, body {
-      min-height: 100%;
-    }
-
-    body {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 400;
-      background-color: var(--creme);
-      background-image:
-        radial-gradient(ellipse 60% 50% at 0% 0%,    rgba(232,127,170,0.22) 0%, transparent 70%),
-        radial-gradient(ellipse 55% 45% at 100% 100%, rgba(77,184,200,0.20)  0%, transparent 70%),
-        radial-gradient(ellipse 40% 35% at 100% 0%,  rgba(232,127,170,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 35% at 0% 100%,  rgba(77,184,200,0.10)  0%, transparent 60%),
-        radial-gradient(circle, rgba(232,127,170,0.09) 1.5px, transparent 1.5px);
-      background-size: cover, cover, cover, cover, 26px 26px;
-      background-attachment: fixed;
-      display: flex;
-      justify-content: center;
-      padding: clamp(28px, 6vw, 48px) 16px 88px;
-      overflow-x: hidden;
-    }
-
-    #emoji-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .emoji-float {
-      position: absolute;
-      bottom: -60px;
-      font-size: 1.4rem;
-      opacity: 0;
-      animation: floatUp var(--dur, 13s) ease-in-out forwards;
-      will-change: transform, opacity;
-      user-select: none;
-    }
-
-    @keyframes floatUp {
-      0%   { transform: translateY(0)      translateX(0)               rotate(0deg);  opacity: 0; }
-      8%   { opacity: 0.52; }
-      50%  { transform: translateY(-52vh)  translateX(var(--dx, 20px)) rotate(12deg); }
-      88%  { opacity: 0.42; }
-      100% { transform: translateY(-112vh) translateX(calc(var(--dx, 20px) * 0.6)) rotate(24deg); opacity: 0; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .emoji-float { display: none; }
-    }
-
-    .card {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 480px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .card > * {
-      opacity: 0;
-      animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .avatar-wrap { animation-delay: 0.08s; }
-    .nome        { animation-delay: 0.22s; }
-    .tagline     { animation-delay: 0.32s; }
-    .local       { animation-delay: 0.40s; }
-    .btns        { animation-delay: 0.50s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card > * { animation: none; opacity: 1; }
-    }
-
-    .avatar-wrap {
-      width: 108px;
-      height: 108px;
-      border-radius: 50%;
-      padding: 3px;
-      background: conic-gradient(from var(--ba), var(--rosa), var(--azul) 55%, var(--rosa));
-      animation: spinBorder 5s linear infinite, fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-delay: 0s, 0.08s;
-      opacity: 0;
-      margin-bottom: 20px;
-      flex-shrink: 0;
-    }
-
-    @keyframes spinBorder {
-      to { --ba: 495deg; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .avatar-wrap {
-        animation: none;
-        opacity: 1;
-        background: linear-gradient(135deg, var(--rosa), var(--azul));
-      }
-    }
-
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: #fff;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-
-    .avatar-monogram {
-      font-family: 'Nunito', sans-serif;
-      font-size: 1.9rem;
-      font-weight: 800;
-      color: var(--rosa);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .nome {
-      font-family: 'Caveat', cursive;
-      font-size: 2.6rem;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: 0.01em;
-      margin-bottom: 8px;
-      text-align: center;
-      text-wrap: balance;
-    }
-
-    .nome .lunna  { color: var(--rosa); }
-    .nome .pijama { color: var(--escuro); }
-
-    .tagline {
-      font-size: 0.92rem;
-      color: var(--cinza);
-      font-weight: 400;
-      text-align: center;
-      margin-bottom: 12px;
-      line-height: 1.5;
-      text-wrap: pretty;
-    }
-
-    .local {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--azul);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 32px;
-      background: rgba(77,184,200,0.10);
-      padding: 5px 12px;
-      border-radius: 100px;
-    }
-
-    .local svg {
-      width: 12px;
-      height: 12px;
-      flex-shrink: 0;
-    }
-
-    .btns {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      width: 100%;
-      padding: 14px 16px 14px 14px;
-      border-radius: 24px;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
-      position: relative;
-      min-height: 64px;
-    }
-
-    .btn:hover  { transform: translateY(-2px); }
-    .btn:active { transform: scale(0.97); }
-
-    .btn:focus-visible {
-      outline: 3px solid var(--rosa);
-      outline-offset: 3px;
-    }
-
-    .btn-wpp   { background: var(--wpp);       color: #fff; }
-    .btn-ig    { background: var(--rosa);       color: #fff; }
-    .btn-frete { background: var(--rosa-pale);  color: var(--escuro); border: 1.5px solid rgba(232,127,170,0.45); }
-
-    .btn-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.20);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .btn-frete .btn-icon { background: rgba(232,127,170,0.14); }
-
-    .btn-icon svg { width: 20px; height: 20px; }
-
-    .btn-text { flex: 1; text-align: left; }
-
-    .btn-label {
-      display: block;
-      font-size: 0.94rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .btn-sub {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 400;
-      margin-top: 2px;
-    }
-
-    .btn-wpp .btn-sub,
-    .btn-ig  .btn-sub  { color: rgba(255,255,255,0.88); }
-    .btn-frete .btn-sub { color: var(--cinza); }
-
-    .btn-arrow {
-      flex-shrink: 0;
-      opacity: 0.55;
-      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.18s;
-      display: flex;
-      align-items: center;
-    }
-
-    .btn:hover .btn-arrow { transform: translateX(3px); opacity: 0.85; }
-
-    .btn-arrow svg { width: 16px; height: 16px; }
-
-    .btn-frete .btn-arrow { color: var(--rosa); }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 10;
-      padding: 16px 0 14px;
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--cinza);
-      letter-spacing: 0.04em;
-      background: linear-gradient(to top, var(--creme) 60%, transparent 100%);
-      pointer-events: none;
-    }
-
-    footer span { color: var(--rosa); }
-  </style>
+  <link rel="preload" as="image" href="assets/img/longo-ovelhinha-sala.webp" type="image/webp" />
+  <link rel="stylesheet" href="assets/css/landing.css" />
 </head>
 <body>
 
-  <div id="emoji-layer"></div>
+  <svg class="sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-whatsapp" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.9 12.9 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+    </symbol>
+    <symbol id="i-caminhao" viewBox="0 0 24 24">
+      <rect x="1" y="3" width="15" height="13" rx="1" />
+      <path d="M16 8h4l3 5v4h-7V8z" />
+      <circle cx="5.5" cy="18.5" r="2.5" />
+      <circle cx="18.5" cy="18.5" r="2.5" />
+    </symbol>
+    <symbol id="i-seta-dir" viewBox="0 0 16 16">
+      <path d="M6 3l5 5-5 5" />
+    </symbol>
+    <symbol id="i-seta-esq" viewBox="0 0 16 16">
+      <path d="M10 3L5 8l5 5" />
+    </symbol>
+  </svg>
 
-  <main class="card">
+  <a class="pular" href="#colecoes">Pular para o conteúdo</a>
 
-    <div class="avatar-wrap">
-      <div class="avatar-inner">
-        <img id="avatar-img" src="logo.png" alt="Logo Lunna Pijama" />
+  <header class="hero" id="topo">
+    <div class="hero__card">
+
+      <div class="emojis" data-emojis aria-hidden="true"></div>
+
+      <nav class="nav" aria-label="Principal">
+        <a class="nav__logo" href="#topo" aria-label="Lunna Pijama — início">
+          <span class="logo-mark" role="img" aria-label="Lunna"></span>
+        </a>
+        <div class="nav__links">
+          <a class="nav__link" href="#colecoes">Coleções</a>
+          <a class="nav__link" href="#sobre">Sobre</a>
+          <a class="nav__link" href="#como-comprar">Como comprar</a>
+          <a class="nav__link" href="#instagram">Instagram</a>
+        </div>
+      </nav>
+
+      <div class="hero__corpo">
+
+        <div class="hero__texto">
+          <p class="local">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-pin" /></svg>
+            Teresina, PI · Enviamos para todo o Brasil
+          </p>
+
+          <h1 class="hero__titulo">
+            <span>Noites</span>
+            <span>tranquilas</span>
+            <span class="hero__script">&amp; dias preguiçosos</span>
+          </h1>
+
+          <p class="hero__lead">Pijamas macios e estampas fofas, escolhidos a dedo aqui em Teresina. Você escolhe, conversa com a gente pelo WhatsApp e recebe em casa.</p>
+
+          <div class="hero__acoes">
+            <a class="link-sublinhado" href="#colecoes">Ver coleções</a>
+          </div>
+
+          <div class="queridinhos">
+            <div class="queridinhos__topo">
+              <h2 class="queridinhos__titulo">Queridinhos da loja</h2>
+              <div class="queridinhos__setas">
+                <button class="seta" type="button" data-carrossel="anterior" aria-label="Produto anterior">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-esq" /></svg>
+                </button>
+                <button class="seta" type="button" data-carrossel="proximo" aria-label="Próximo produto">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-dir" /></svg>
+                </button>
+              </div>
+            </div>
+            <div class="queridinhos__lista" data-carrossel-lista aria-live="polite">
+              <a class="queridinho" data-wa="produto" data-wa-nome="Short doll Corações" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/shortdoll-coracoes.webp" alt="" width="88" height="96" />
+                <div class="queridinho__corpo">
+                  <div class="queridinho__nome">Short doll Corações</div>
+                  <div class="queridinho__cat">Short doll</div>
+                  <div class="queridinho__cta">Pedir pelo WhatsApp</div>
+                </div>
+              </a>
+              <a class="queridinho" data-wa="produto" data-wa-nome="Moletom Corações" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/moletom-coracoes.webp" alt="" width="88" height="96" />
+                <div class="queridinho__corpo">
+                  <div class="queridinho__nome">Moletom Corações</div>
+                  <div class="queridinho__cat">Moletom &amp; conjuntos</div>
+                  <div class="queridinho__cta">Pedir pelo WhatsApp</div>
+                </div>
+              </a>
+              <a class="queridinho" data-wa="produto" data-wa-nome="Longo Ovelhinha" target="_blank" rel="noopener noreferrer">
+                <img src="assets/img/longo-ovelhinha-caneca.webp" alt="" width="88" height="96" />
+                <div class="queridinho__corpo">
+                  <div class="queridinho__nome">Longo Ovelhinha</div>
+                  <div class="queridinho__cat">Pijama longo</div>
+                  <div class="queridinho__cta">Pedir pelo WhatsApp</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <span class="ornamento ornamento--circulo" aria-hidden="true"></span>
+          <span class="ornamento ornamento--x" aria-hidden="true"></span>
+          <svg class="ornamento ornamento--onda" width="14" height="64" viewBox="0 0 14 64" fill="none" stroke="#3a2a35" stroke-opacity="0.4" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M7 2 q6 5 0 10 t0 10 t0 10 t0 10 t0 10 t0 10" /></svg>
+
+          <div class="foto-hero">
+            <div class="foto-hero__painel"></div>
+            <div class="foto-hero__img">
+              <img src="assets/img/longo-ovelhinha-sala.webp" alt="Cliente sorrindo com pijama longo azul estampa ovelhinha" width="610" height="823" fetchpriority="high" />
+            </div>
+            <div class="foto-hero__moldura" aria-hidden="true"></div>
+            <div class="foto-hero__etiqueta">
+              <small>Pijama longo</small>
+              <strong>Ovelhinha</strong>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+  </header>
 
-    <h1 class="nome">
-      <span class="lunna">Lunna</span>&nbsp;<span class="pijama">Pijama</span>
-    </h1>
+  <main class="principal">
 
-    <p class="tagline">Noites tranquilas &amp; Dias preguiçosos ☁️</p>
+    <section class="secao colecoes" id="colecoes" aria-labelledby="h-colecoes">
+      <div class="colecoes__intro">
+        <h2 class="titulo titulo--medio" id="h-colecoes">Um pijama para cada noite</h2>
+        <p class="texto">Do short doll fresquinho ao moletom de domingo — para todas as idades e tamanhos. Toque numa coleção para ver os modelos disponíveis.</p>
+      </div>
 
-    <div class="local">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
-        <circle cx="12" cy="9" r="2.5"/>
-      </svg>
-      <span>Teresina &middot; PI</span>
-    </div>
+      <div class="colecoes__grid">
+        <a class="categoria" data-wa="categoria" data-wa-nome="pijama longo" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img"><img src="assets/img/longo-ovelhinha-sala.webp" alt="" width="610" height="823" loading="lazy" /></div>
+          <div>
+            <h3 class="categoria__nome">Pijama longo</h3>
+            <p class="categoria__sub">Aconchego dos pés à cabeça</p>
+          </div>
+        </a>
+        <a class="categoria" data-wa="categoria" data-wa-nome="short doll" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img"><img src="assets/img/shortdoll-coracoes.webp" alt="" width="821" height="857" loading="lazy" /></div>
+          <div>
+            <h3 class="categoria__nome">Short doll</h3>
+            <p class="categoria__sub">Fresquinho pro calor de Teresina</p>
+          </div>
+        </a>
+        <a class="categoria" data-wa="categoria" data-wa-nome="moletom e conjuntos" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img"><img src="assets/img/moletom-coracoes.webp" alt="" width="796" height="816" loading="lazy" /></div>
+          <div>
+            <h3 class="categoria__nome">Moletom &amp; conjuntos</h3>
+            <p class="categoria__sub">Para os dias preguiçosos</p>
+          </div>
+        </a>
+        <!-- TODO: substituir o placeholder pela foto de pijama infantil (assets/img/infantil.webp) -->
+        <a class="categoria" data-wa="categoria" data-wa-nome="pijama infantil" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img" aria-hidden="true"></div>
+          <div>
+            <h3 class="categoria__nome">Infantil</h3>
+            <p class="categoria__sub">Para os pequenos sonharem</p>
+          </div>
+        </a>
+        <!-- TODO: substituir o placeholder pela foto de mãe e filha (assets/img/mae-filha.webp) -->
+        <a class="categoria" data-wa="categoria" data-wa-nome="tal mãe, tal filha" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img" aria-hidden="true"></div>
+          <div>
+            <h3 class="categoria__nome">Tal mãe, tal filha</h3>
+            <p class="categoria__sub">Combinando até no sofá</p>
+          </div>
+        </a>
+        <!-- TODO: substituir o placeholder pela foto plus size (assets/img/plus-size.webp) -->
+        <a class="categoria" data-wa="categoria" data-wa-nome="plus size" target="_blank" rel="noopener noreferrer">
+          <div class="categoria__img" aria-hidden="true"></div>
+          <div>
+            <h3 class="categoria__nome">Plus size</h3>
+            <p class="categoria__sub">Conforto em todos os tamanhos</p>
+          </div>
+        </a>
+      </div>
+    </section>
 
-    <div class="btns">
+    <section class="secao sobre" id="sobre" aria-labelledby="h-sobre">
+      <div class="sobre__visual">
+        <div class="foto-sobre">
+          <div class="foto-sobre__painel" aria-hidden="true"></div>
+          <div class="foto-sobre__img">
+            <img src="assets/img/longo-ovelhinha-caneca.webp" alt="Cliente com pijama longo ovelhinha segurando uma caneca" width="610" height="839" loading="lazy" />
+          </div>
+          <div class="adesivo">feito com <span role="img" aria-label="amor">♥</span></div>
+        </div>
+      </div>
+      <div class="sobre__texto">
+        <h2 class="titulo titulo--grande" id="h-sobre">Uma loja feita com <span class="script">carinho</span></h2>
+        <p class="texto">A Lunna Pijama é uma loja de Teresina para quem ama chegar em casa, trocar de roupa e se sentir abraçada. Cada estampa é escolhida com cuidado — ovelhinhas, corações, nuvens — pensando em conforto e em deixar a sua noite mais leve.</p>
+        <p class="texto">O atendimento é de pertinho: você conversa direto com a gente pelo WhatsApp, tira dúvidas de tamanho e escolhe sem pressa.</p>
+        <ul class="destaques">
+          <li>Tecidos macios</li>
+          <li>Estampas fofas</li>
+          <li>Atendimento de pertinho</li>
+        </ul>
+      </div>
+    </section>
 
-      <a class="btn btn-wpp" id="btn-comprar" href="#">
-        <span class="btn-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.9 12.9 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
-          </svg>
-        </span>
-        <span class="btn-text">
-          <span class="btn-label">Fale com a gente</span>
-          <span class="btn-sub">Tire dúvidas ou faça seu pedido</span>
-        </span>
-        <span class="btn-arrow" aria-hidden="true">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 3l5 5-5 5"/>
-          </svg>
-        </span>
+    <section class="secao comprar" id="como-comprar" aria-labelledby="h-comprar">
+      <h2 class="titulo titulo--grande" id="h-comprar">Fácil como <span class="script">cochilar</span></h2>
+      <ol class="passos">
+        <li class="passo">
+          <div class="passo__numero" aria-hidden="true">1</div>
+          <h3 class="passo__titulo">Escolha seu pijama</h3>
+          <p>Veja as coleções aqui ou no nosso Instagram e separe os modelos que mais combinam com você.</p>
+        </li>
+        <li class="passo">
+          <div class="passo__numero" aria-hidden="true">2</div>
+          <h3 class="passo__titulo">Chame no WhatsApp</h3>
+          <p>Mande o print ou o nome do modelo. A gente confirma tamanho, cores disponíveis e forma de pagamento.</p>
+        </li>
+        <li class="passo">
+          <div class="passo__numero" aria-hidden="true">3</div>
+          <h3 class="passo__titulo">Receba em casa</h3>
+          <p>Combinamos a entrega em Teresina ou enviamos para qualquer cidade do Brasil.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="secao envio" id="envio" aria-labelledby="h-envio">
+      <span class="envio__icone" aria-hidden="true"><svg width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="#i-caminhao" /></svg></span>
+      <div class="envio__texto">
+        <h2 class="envio__titulo" id="h-envio">Enviamos para todo o Brasil <span class="script">de Teresina pra você</span></h2>
+        <p>Consulte o valor do frete para a sua cidade — é só chamar a gente.</p>
+      </div>
+      <a class="btn-rosa" data-wa="frete" target="_blank" rel="noopener noreferrer">
+        Consultar frete
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-dir" /></svg>
       </a>
+    </section>
 
-      <a class="btn btn-ig" href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer">
-        <span class="btn-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-            <circle cx="12" cy="12" r="4"/>
-            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
-          </svg>
-        </span>
-        <span class="btn-text">
-          <span class="btn-label">Instagram</span>
-          <span class="btn-sub">@lunnapijama</span>
-        </span>
-        <span class="btn-arrow" aria-hidden="true">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 3l5 5-5 5"/>
-          </svg>
-        </span>
-      </a>
+    <section class="secao instagram" id="instagram" aria-labelledby="h-insta">
+      <div class="instagram__topo">
+        <div class="instagram__intro">
+          <h2 class="titulo titulo--medio" id="h-insta">No Instagram</h2>
+          <p class="texto">Novidades, provadores e os bastidores da loja em @lunnapijama.</p>
+        </div>
+        <a class="btn-rosa btn-rosa--ig" href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-instagram" /></svg>
+          Seguir @lunnapijama
+        </a>
+      </div>
+      <div class="galeria">
+        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Pijama longo ovelhinha — ver no Instagram"><img src="assets/img/longo-ovelhinha-sala.webp" alt="" width="610" height="823" loading="lazy" /></a>
+        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Short doll corações — ver no Instagram"><img src="assets/img/shortdoll-coracoes.webp" alt="" width="821" height="857" loading="lazy" /></a>
+        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Conjunto moletom corações — ver no Instagram"><img src="assets/img/moletom-coracoes.webp" alt="" width="796" height="816" loading="lazy" /></a>
+        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Pijama longo ovelhinha com caneca — ver no Instagram"><img src="assets/img/longo-ovelhinha-caneca.webp" alt="" width="610" height="839" loading="lazy" /></a>
+      </div>
+    </section>
 
-      <a class="btn btn-frete" id="btn-frete" href="#">
-        <span class="btn-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#e87faa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="3" width="15" height="13" rx="1"/>
-            <path d="M16 8h4l3 5v4h-7V8z"/>
-            <circle cx="5.5" cy="18.5" r="2.5"/>
-            <circle cx="18.5" cy="18.5" r="2.5"/>
-          </svg>
-        </span>
-        <span class="btn-text">
-          <span class="btn-label">Enviamos para todo o Brasil</span>
-          <span class="btn-sub">Consulte o valor para sua cidade</span>
-        </span>
-        <span class="btn-arrow" aria-hidden="true">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 3l5 5-5 5"/>
-          </svg>
-        </span>
-      </a>
-
-    </div>
   </main>
 
-  <footer>feito com <span>♥</span> &middot; lunnapijama.com.br</footer>
+  <footer class="rodape">
+    <div class="rodape__topo">
+      <div class="rodape__marca">
+        <span class="logo-mark logo-mark--rodape" role="img" aria-label="Lunna — Noites tranquilas &amp; Dias preguiçosos"></span>
+        <p class="local">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-pin" /></svg>
+          Teresina, PI
+        </p>
+      </div>
+      <div class="rodape__colunas">
+        <nav class="rodape__coluna" aria-label="Loja">
+          <h2>Loja</h2>
+          <a href="#colecoes">Coleções</a>
+          <a href="#sobre">Sobre</a>
+          <a href="#como-comprar">Como comprar</a>
+        </nav>
+        <div class="rodape__coluna">
+          <h2>Contato</h2>
+          <a data-wa="geral" target="_blank" rel="noopener noreferrer">WhatsApp <span data-wa-telefone>(86) 99412-4404</span></a>
+          <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer">@lunnapijama</a>
+          <a data-wa="frete" target="_blank" rel="noopener noreferrer">Consultar frete</a>
+        </div>
+      </div>
+    </div>
+    <p class="rodape__fim">feito com <span role="img" aria-label="amor">♥</span> · lunnapijama.com.br</p>
+  </footer>
 
-  <script>
-    const WHATSAPP   = '5586994124404';
-    const MSG_PADRAO = 'Olá! Vim pelo Instagram e gostaria de saber mais sobre os pijamas.';
-    const MSG_FRETE  = 'Olá! Vim pelo Instagram e quero saber o valor do frete para a minha cidade. Pode me ajudar?';
+  <a class="wpp-flutuante" data-wa="geral" target="_blank" rel="noopener noreferrer" aria-label="Fale com a gente no WhatsApp">
+    <svg width="30" height="30" fill="currentColor" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+  </a>
 
-    document.getElementById('btn-comprar').href =
-      `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(MSG_PADRAO)}`;
-
-    document.getElementById('btn-frete').href =
-      `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(MSG_FRETE)}`;
-
-    const avatarImg = document.getElementById('avatar-img');
-    avatarImg.onerror = () => {
-      avatarImg.style.display = 'none';
-      const m = document.createElement('span');
-      m.className   = 'avatar-monogram';
-      m.textContent = 'LP';
-      avatarImg.parentNode.appendChild(m);
-    };
-
-    const EMOJIS = ['🐑', '☁️', '💕', '🌙', '💤', '🩷', '💙', '✨'];
-    const layer  = document.getElementById('emoji-layer');
-
-    function spawnEmoji() {
-      const el = document.createElement('span');
-      el.className   = 'emoji-float';
-      el.textContent = EMOJIS[Math.floor(Math.random() * EMOJIS.length)];
-      el.style.left  = `${Math.random() * 96}vw`;
-      el.style.fontSize = `${1.1 + Math.random() * 0.85}rem`;
-      el.style.setProperty('--dur', `${10 + Math.random() * 9}s`);
-      el.style.setProperty('--dx',  `${(Math.random() - 0.5) * 70}px`);
-      layer.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
-    }
-
-    for (let i = 0; i < 6; i++) setTimeout(spawnEmoji, i * 500);
-    setInterval(spawnEmoji, 1800);
-  </script>
-
+  <script src="assets/js/landing.js"></script>
 </body>
 </html>
