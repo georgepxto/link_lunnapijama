@@ -988,8 +988,13 @@ p {
   color: var(--cinza);
 }
 
-.rodape__fim span {
+.rodape__fim a {
   color: var(--rosa-escuro);
+  transition: color var(--transicao);
+}
+
+.rodape__fim a:hover {
+  text-decoration: underline;
 }
 
 /* ---------- WhatsApp flutuante ---------- */
