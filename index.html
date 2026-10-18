@@ -216,46 +216,78 @@
     </section>
 
     <section class="secao sobre" id="sobre" aria-labelledby="h-sobre">
-      <div class="sobre__visual">
+      <h2 class="titulo titulo--grande" id="h-sobre">Um bilhetinho <span class="script">pra você</span></h2>
+      <div class="sobre__corpo">
         <div class="foto-sobre">
           <div class="foto-sobre__painel" aria-hidden="true"></div>
           <div class="foto-sobre__img">
             <img src="assets/img/longo-ovelhinha-caneca.webp" alt="Cliente com pijama longo ovelhinha segurando uma caneca" width="610" height="839" loading="lazy" />
           </div>
-          <div class="adesivo">feito com <span role="img" aria-label="amor">♥</span></div>
         </div>
-      </div>
-      <div class="sobre__texto">
-        <h2 class="titulo titulo--grande" id="h-sobre">Uma loja feita com <span class="script">carinho</span></h2>
-        <p class="texto">A Lunna Pijama é uma loja de Teresina para quem ama chegar em casa, trocar de roupa e se sentir abraçada. Cada estampa é escolhida com cuidado — ovelhinhas, corações, nuvens — pensando em conforto e em deixar a sua noite mais leve.</p>
-        <p class="texto">O atendimento é de pertinho: você conversa direto com a gente pelo WhatsApp, tira dúvidas de tamanho e escolhe sem pressa.</p>
-        <ul class="destaques">
-          <li>Tecidos macios</li>
-          <li>Estampas fofas</li>
-          <li>Atendimento de pertinho</li>
-        </ul>
+        <div class="bilhete">
+          <div class="bilhete__papel">
+            <span class="bilhete__fita" aria-hidden="true"></span>
+            <p>Oi, que bom que você chegou até aqui!</p>
+            <p>A Lunna é feita para aquele momento de chegar em casa, tirar o dia do corpo e vestir algo macio. Cada estampa é escolhida a dedo aqui em Teresina, pensando em você.</p>
+            <p>Qualquer dúvida, é só chamar. Vai ser um prazer!</p>
+            <p class="bilhete__assinatura">com carinho, Lunna <span role="img" aria-label="coração">♥</span></p>
+          </div>
+          <ul class="destaques">
+            <li>Tecidos macios</li>
+            <li>Estampas fofas</li>
+            <li>Atendimento de pertinho</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <section class="secao comprar" id="como-comprar" aria-labelledby="h-comprar">
-      <h2 class="titulo titulo--grande" id="h-comprar">Fácil como <span class="script">cochilar</span></h2>
-      <ol class="passos">
-        <li class="passo">
-          <div class="passo__numero" aria-hidden="true">1</div>
-          <h3 class="passo__titulo">Escolha seu pijama</h3>
-          <p>Veja as coleções aqui ou no nosso Instagram e separe os modelos que mais combinam com você.</p>
-        </li>
-        <li class="passo">
-          <div class="passo__numero" aria-hidden="true">2</div>
-          <h3 class="passo__titulo">Chame no WhatsApp</h3>
-          <p>Mande o print ou o nome do modelo. A gente confirma tamanho, cores disponíveis e forma de pagamento.</p>
-        </li>
-        <li class="passo">
-          <div class="passo__numero" aria-hidden="true">3</div>
-          <h3 class="passo__titulo">Receba em casa</h3>
-          <p>Combinamos a entrega em Teresina ou enviamos para qualquer cidade do Brasil.</p>
-        </li>
-      </ol>
+      <div class="comprar__texto">
+        <h2 class="titulo titulo--grande" id="h-comprar">Comprar é só uma <span class="script">conversa</span></h2>
+        <p class="comprar__lead">Sem cadastro e sem carrinho. Do outro lado tem gente de verdade pra te ajudar a escolher.</p>
+        <ol class="passos">
+          <li class="passo">
+            <span class="passo__numero" aria-hidden="true">1</span>
+            <h3 class="passo__titulo">Escolha o modelo</h3>
+            <p>Aqui no site ou no nosso Instagram.</p>
+          </li>
+          <li class="passo">
+            <span class="passo__numero" aria-hidden="true">2</span>
+            <h3 class="passo__titulo">Chame no WhatsApp</h3>
+            <p>A gente confirma tamanho, cores e pagamento.</p>
+          </li>
+          <li class="passo">
+            <span class="passo__numero" aria-hidden="true">3</span>
+            <h3 class="passo__titulo">Receba em casa</h3>
+            <p>Em Teresina ou em qualquer cidade do Brasil.</p>
+          </li>
+        </ol>
+      </div>
+
+      <div class="comprar__chat">
+        <div class="chat" data-chat role="img" aria-label="Exemplo de conversa com a loja">
+          <div class="chat__topo">
+            <span class="chat__avatar" aria-hidden="true"><span></span></span>
+            <div>
+              <div class="chat__nome">Lunna Pijama</div>
+              <div class="chat__status">atendimento pelo WhatsApp</div>
+            </div>
+          </div>
+          <div class="chat__msgs">
+            <p class="balao balao--cliente">Oi! Vi o pijama de ovelhinha no Instagram e me apaixonei</p>
+            <div class="balao balao--cliente balao--foto" data-chat-passo>
+              <img src="assets/img/longo-ovelhinha-sala.webp" alt="" width="132" height="160" loading="lazy" />
+            </div>
+            <p class="balao balao--loja" data-chat-passo>Oii, que bom te ver por aqui! Esse é o Longo Ovelhinha. Me conta seu tamanho que eu já confiro pra você.</p>
+            <p class="balao balao--cliente" data-chat-passo>Uso M! E vocês mandam pra Fortaleza?</p>
+            <p class="balao balao--loja" data-chat-passo>Mandamos sim, pra todo o Brasil! Já te passo o valor do frete.</p>
+          </div>
+        </div>
+        <a class="chat__cta" data-wa="geral" target="_blank" rel="noopener noreferrer">
+          <svg width="22" height="22" fill="currentColor" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+          Começar minha conversa
+        </a>
+      </div>
     </section>
 
     <section class="secao envio" id="envio" aria-labelledby="h-envio">

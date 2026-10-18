@@ -118,7 +118,55 @@
     iniciar();
   }
 
+  function iniciarChat() {
+    const chat = document.querySelector('[data-chat]');
+    if (!chat) return;
+
+    const reduzir = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduzir.matches || !('IntersectionObserver' in window)) return;
+
+    const baloes = Array.from(chat.querySelectorAll('[data-chat-passo]'));
+    const area = chat.querySelector('.chat__msgs');
+    const [foto, respostaLoja, cliente, fechamento] = baloes;
+    const esperar = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    baloes.forEach((balao) => { balao.hidden = true; });
+
+    function revelar(balao) {
+      balao.hidden = false;
+      balao.classList.add('balao--entra');
+    }
+
+    async function digitar(proximo) {
+      const indicador = document.createElement('p');
+      indicador.className = 'balao balao--loja balao--digitando balao--entra';
+      indicador.textContent = 'digitando…';
+      area.insertBefore(indicador, proximo);
+      await esperar(1700);
+      indicador.remove();
+      revelar(proximo);
+    }
+
+    async function contar() {
+      await esperar(600);
+      revelar(foto);
+      await digitar(respostaLoja);
+      await esperar(1100);
+      revelar(cliente);
+      await digitar(fechamento);
+    }
+
+    const observador = new IntersectionObserver((entradas) => {
+      if (!entradas.some((e) => e.isIntersecting)) return;
+      observador.disconnect();
+      contar();
+    }, { threshold: 0.2 });
+
+    observador.observe(chat);
+  }
+
   montarLinksWhatsapp();
   iniciarCarrossel();
   iniciarEmojis();
+  iniciarChat();
 })();
