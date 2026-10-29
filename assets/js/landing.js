@@ -171,6 +171,15 @@
     observador.observe(chat);
   }
 
+  function acompanharModoDeFoco() {
+    const raiz = document.documentElement;
+    document.addEventListener('pointerdown', () => { raiz.dataset.ponteiro = ''; }, true);
+    document.addEventListener('keydown', (evento) => {
+      if (evento.key === 'Tab') delete raiz.dataset.ponteiro;
+    }, true);
+  }
+
+  acompanharModoDeFoco();
   montarLinksWhatsapp();
   iniciarCarrossel();
   iniciarEmojis();

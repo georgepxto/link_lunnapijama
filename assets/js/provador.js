@@ -364,6 +364,7 @@
 
     document.documentElement.classList.add('mostruario-aberto');
     if (!dialogo.open) dialogo.showModal();
+    dialogo.focus({ preventScroll: true });
     mostrar(indice, 0);
 
     if (reduzir.matches || !origem) {
@@ -410,7 +411,12 @@
       document.documentElement.classList.remove('mostruario-aberto');
       history.replaceState(null, '', '#colecoes');
       const retorno = estado.retorno;
-      if (retorno && retorno.isConnected && !retorno.hidden) retorno.focus();
+      if (document.documentElement.hasAttribute('data-ponteiro')) {
+        const focado = document.activeElement;
+        if (focado && focado !== document.body) focado.blur();
+      } else if (retorno && retorno.isConnected && !retorno.hidden) {
+        retorno.focus();
+      }
     });
 
     dialogo.addEventListener('keydown', (evento) => {
@@ -425,7 +431,7 @@
         if (!lista.length) return;
         const primeiro = lista[0];
         const ultimo = lista[lista.length - 1];
-        if (evento.shiftKey && document.activeElement === primeiro) {
+        if (evento.shiftKey && (document.activeElement === primeiro || document.activeElement === dialogo)) {
           evento.preventDefault();
           ultimo.focus();
         } else if (!evento.shiftKey && document.activeElement === ultimo) {

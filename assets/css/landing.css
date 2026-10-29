@@ -57,6 +57,7 @@ body {
 a, button {
   cursor: pointer;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -67,6 +68,10 @@ a:focus-visible,
 button:focus-visible {
   outline: 3px solid var(--rosa-escuro);
   outline-offset: 3px;
+}
+
+html[data-ponteiro] :focus-visible:not([aria-current='true']) {
+  outline: none;
 }
 
 img {
@@ -1328,9 +1333,9 @@ p {
   color: var(--cinza);
 }
 
-.pilha:focus-visible .polaroid--3 { transform: rotate(-14deg) translateX(-18%); }
-.pilha:focus-visible .polaroid--2 { transform: rotate(12deg) translateX(18%); }
-.pilha:focus-visible .polaroid--1 { transform: translateY(-6px) scale(1.03) rotate(0deg); }
+html:not([data-ponteiro]) .pilha:focus-visible .polaroid--3 { transform: rotate(-14deg) translateX(-18%); }
+html:not([data-ponteiro]) .pilha:focus-visible .polaroid--2 { transform: rotate(12deg) translateX(18%); }
+html:not([data-ponteiro]) .pilha:focus-visible .polaroid--1 { transform: translateY(-6px) scale(1.03) rotate(0deg); }
 
 @media (hover: hover) {
   .pilha:hover .polaroid--3 { transform: rotate(-14deg) translateX(-18%); }
@@ -1453,6 +1458,10 @@ html.mostruario-aberto {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
   animation: mostruario-surgir 0.25s ease-out;
+}
+
+.mostruario:focus {
+  outline: none;
 }
 
 .mostruario::backdrop {
@@ -1680,6 +1689,10 @@ html.mostruario-aberto {
   .mostruario__seta {
     display: flex;
   }
+
+  .mostruario__seta[data-mostruario-anterior] { grid-area: 1 / 1; }
+  .mostruario__palco                          { grid-area: 1 / 2; }
+  .mostruario__seta[data-mostruario-proxima]  { grid-area: 1 / 3; }
 
   .mostruario__mini {
     width: 64px;
