@@ -1,0 +1,40 @@
+name: Atualizar álbuns
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: albuns
+  cancel-in-progress: false
+
+jobs:
+  albuns:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run albuns
+
+      - name: Commit das fotos novas
+        run: |
+          git add assets/img/albuns assets/data/albuns.json
+          if git diff --cached --quiet; then
+            echo "Nenhuma mudança nos álbuns."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "atualiza fotos dos álbuns"
+          git push
