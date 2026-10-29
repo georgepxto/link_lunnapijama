@@ -3,7 +3,9 @@
     "id": "AF1QipMWBYLf90gEi0eVwJbfuqWwSzBcS7PHVagSjVanhI0vgd_5BEtGOSICdreIqmxTgA",
     "slug": "pijama-short-p",
     "titulo": "Pijama Short P",
-    "capa": 0,
+    "modelo": "Short",
+    "tamanho": "P",
+    "capa": 3,
     "fotos": [
       {
         "src": "assets/img/albuns/pijama-short-p/01.webp",
@@ -53,6 +55,8 @@
     "id": "AF1QipOLhSotoeBEOpxXoUVeiA--y9mHiXnBdKjSXqAA_bA7KCoqpdEQbTxdE26IfD2L4Q",
     "slug": "pijama-short-m",
     "titulo": "Pijama short M",
+    "modelo": "Short",
+    "tamanho": "M",
     "capa": 0,
     "fotos": [
       {
@@ -68,7 +72,9 @@
     "id": "AF1QipPMeNv5ECvG9uj-od6uERuJdLfelQEl-v4uvgaTLjiJgf-DasdtEpmgBq_fpQDDgA",
     "slug": "pijama-short-g",
     "titulo": "Pijama short G",
-    "capa": 0,
+    "modelo": "Short",
+    "tamanho": "G",
+    "capa": 2,
     "fotos": [
       {
         "src": "assets/img/albuns/pijama-short-g/01.webp",
@@ -132,7 +138,9 @@
     "id": "AF1QipO3j-rowIMd2GBPnQ_MoRdb7lmu3VCuMYOXs_kZ-5VeYLigIT_RGblQXN8g2Hz_6A",
     "slug": "pijama-short-gg",
     "titulo": "Pijama short GG",
-    "capa": 0,
+    "modelo": "Short",
+    "tamanho": "GG",
+    "capa": 12,
     "fotos": [
       {
         "src": "assets/img/albuns/pijama-short-gg/01.webp",
@@ -315,6 +323,8 @@
     "id": "AF1QipP2ZPJN1QspORHyknOo_aRMSAXy96IOexApq8Dxmd2A2ehKXKI36T1b1sAqtpMgAw",
     "slug": "pijama-xgg",
     "titulo": "Pijama XGG",
+    "modelo": "Short plus",
+    "tamanho": "XGG",
     "capa": 0,
     "fotos": [
       {
@@ -337,7 +347,9 @@
     "id": "AF1QipPHz_x_6NkSZDCji9Wk3ukYJCS2Kq7SqkMppvTn7Zi9DzH1YxH-P9bgbsqKAhfXCQ",
     "slug": "pijama-regata-calca-m",
     "titulo": "Pijama regata & calça M",
-    "capa": 0,
+    "modelo": "Regata & calça",
+    "tamanho": "M",
+    "capa": 1,
     "fotos": [
       {
         "src": "assets/img/albuns/pijama-regata-calca-m/01.webp",
@@ -366,6 +378,8 @@
     "id": "AF1QipM48XCu0jqXMzrh_ClrHtgflEKzHX-cXvbps4QV8qMMqs8Dx_XjxGRViteHzik8Ig",
     "slug": "pijama-regata-calca-g",
     "titulo": "Pijama regata & calça G",
+    "modelo": "Regata & calça",
+    "tamanho": "G",
     "capa": 0,
     "fotos": [
       {
@@ -388,6 +402,8 @@
     "id": "AF1QipMakivAnB_R-efNgLju-T3WN-nj5I1inBkIVQ9cJAlE5qhyckKCIG15RrZLon40MA",
     "slug": "pijama-calca-p",
     "titulo": "Pijama calça P",
+    "modelo": "Calça longa",
+    "tamanho": "P",
     "capa": 0,
     "fotos": [
       {

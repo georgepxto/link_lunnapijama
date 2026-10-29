@@ -132,7 +132,7 @@ async function limparPasta(pasta, manter) {
   }
 }
 
-async function importarAlbum(url, slugsUsados) {
+async function importarAlbum(url, slugsUsados, antigo) {
   const html = await (await baixar(url)).text();
   const titulo = extrairTitulo(html);
   const bases = extrairFotos(html);
@@ -149,7 +149,8 @@ async function importarAlbum(url, slugsUsados) {
   const fotos = await emLotes(bases, CONCORRENCIA, (base, i) => processarFoto(base, pasta, slug, i));
   await limparPasta(pasta, new Set(fotos.flatMap((f) => [path.basename(f.src), path.basename(f.mini)])));
 
-  return { id: idDoAlbum(url), slug, titulo, capa: 0, fotos };
+  const capa = Number.isInteger(antigo?.capa) && antigo.capa < fotos.length ? antigo.capa : 0;
+  return { id: idDoAlbum(url), slug, titulo, modelo: antigo?.modelo, tamanho: antigo?.tamanho, capa, fotos };
 }
 
 async function lerAntigos() {
@@ -172,13 +173,13 @@ async function main() {
 
   for (const [i, url] of ALBUNS.entries()) {
     console.log(`Álbum ${i + 1}/${ALBUNS.length}`);
+    const antigo = antigos.find((a) => a.id === idDoAlbum(url));
     try {
-      const album = await importarAlbum(url, slugsUsados);
+      const album = await importarAlbum(url, slugsUsados, antigo);
       slugsUsados.add(album.slug);
       albuns.push(album);
     } catch (erro) {
       falhas.push(i + 1);
-      const antigo = antigos.find((a) => a.id === idDoAlbum(url));
       if (antigo && !slugsUsados.has(antigo.slug)) {
         console.warn(`  ⚠ falhou (${erro.message}); mantendo os dados antigos de "${antigo.titulo}"`);
         slugsUsados.add(antigo.slug);

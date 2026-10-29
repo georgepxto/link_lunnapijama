@@ -1,10 +1,13 @@
 (function () {
   'use strict';
 
-  const secao = document.getElementById('provador');
-  if (!secao) return;
+  const secao = document.getElementById('colecoes');
+  if (!secao || !secao.querySelector('[data-provador-mesa]')) return;
 
   const mesa = secao.querySelector('[data-provador-mesa]');
+  const filtro = secao.querySelector('[data-filtro]');
+  const filtroStatus = secao.querySelector('[data-filtro-status]');
+  const faixaTitulo = secao.querySelector('[data-provador-faixa-titulo]');
   const faixa = secao.querySelector('[data-provador-faixa]');
   const trilho = faixa.querySelector('.faixa__trilho');
   const dialogo = secao.querySelector('[data-mostruario]');
@@ -21,9 +24,10 @@
   const SUAVE = 'cubic-bezier(0.22, 1, 0.36, 1)';
   const DEEP_LINK = /^#provador\/([^/]+)\/(\d+)$/;
 
-  const estado = { albuns: [], album: null, indice: 0, camada: null, retorno: null, fechando: false };
+  const estado = { albuns: [], album: null, indice: 0, camada: null, retorno: null, fechando: false, tamanho: '' };
 
-  const plural = (n) => `${n} ${n === 1 ? 'foto' : 'fotos'}`;
+  const modelos = (n) => `${n} ${n === 1 ? 'modelo' : 'modelos'}`;
+  const nomeDe = (album) => (album.modelo ? `${album.modelo} · ${album.tamanho}` : album.titulo);
   const textoAlt = (album, n) => `${album.titulo} — foto ${n}`;
 
   function el(tag, atributos = {}, filhos = []) {
@@ -62,10 +66,10 @@
   function montarPilha(album, posicao) {
     const total = album.fotos.length;
     const capa = album.fotos[album.capa] ? album.capa : 0;
-    const outras = album.fotos.map((_, i) => i).filter((i) => i !== capa);
+    const seguinte = (passo) => (total >= 3 ? (capa + passo) % total : undefined);
     const camadas = [
-      { classe: 'polaroid--3', indice: outras[1] },
-      { classe: 'polaroid--2', indice: outras[0] },
+      { classe: 'polaroid--3', indice: seguinte(2) },
+      { classe: 'polaroid--2', indice: seguinte(1) },
       { classe: 'polaroid--1', indice: capa }
     ];
 
@@ -73,26 +77,33 @@
     let frente = null;
 
     for (const { classe, indice } of camadas) {
+      const ehFrente = classe === 'polaroid--1';
       const foto = album.fotos[indice];
       const quadro = el('span', { class: 'polaroid__foto' });
       if (foto) {
         quadro.style.backgroundColor = foto.cor;
-        const extra = classe === 'polaroid--1'
-          ? { srcset: srcsetDe(foto), sizes: '200px' }
-          : {};
+        const extra = ehFrente ? { srcset: srcsetDe(foto), sizes: '200px' } : {};
         quadro.append(imagem(foto, textoAlt(album, indice + 1), extra));
       }
-      const legenda = el('span', { class: 'polaroid__legenda', 'aria-hidden': 'true' }, classe === 'polaroid--1' ? [album.titulo] : []);
+      if (ehFrente && album.tamanho) {
+        quadro.append(el('span', { class: 'polaroid__selo', 'aria-hidden': 'true' }, [album.tamanho]));
+      }
+      const legenda = el('span', { class: 'polaroid__legenda', 'aria-hidden': 'true' }, ehFrente ? [album.modelo || album.titulo] : []);
       monte.append(el('span', { class: `polaroid ${classe}` }, [quadro, legenda]));
-      if (classe === 'polaroid--1') frente = quadro;
+      if (ehFrente) frente = quadro;
     }
 
     const botao = el('button', {
       type: 'button',
       class: 'pilha',
       'data-slug': album.slug,
-      'aria-label': `Abrir álbum ${album.titulo}, ${plural(total)}`
-    }, [monte, el('span', { class: 'pilha__qtd', 'aria-hidden': 'true' }, [plural(total)])]);
+      'data-album-tamanho': album.tamanho || '',
+      'aria-label': `Abrir álbum ${nomeDe(album)}, ${modelos(total)}`
+    }, [
+      monte,
+      el('span', { class: 'pilha__nome', 'aria-hidden': 'true' }, [nomeDe(album)]),
+      el('span', { class: 'pilha__qtd', 'aria-hidden': 'true' }, [modelos(total)])
+    ]);
 
     botao.style.setProperty('--i', posicao);
     botao.addEventListener('click', () => abrir(album, capa, botao, frente));
@@ -108,7 +119,7 @@
     const botao = el('button', {
       type: 'button',
       class: 'faixa__item',
-      'aria-label': copia ? null : `Abrir álbum ${album.titulo} na foto ${indice + 1}`,
+      'aria-label': copia ? null : `Abrir álbum ${nomeDe(album)} na foto ${indice + 1}`,
       'aria-hidden': copia ? 'true' : null,
       tabindex: copia ? '-1' : null,
       'data-copia': copia ? '' : null
@@ -143,6 +154,67 @@
     }, { rootMargin: '0px 0px -10% 0px' });
 
     mesa.querySelectorAll('.pilha').forEach((pilha) => observador.observe(pilha));
+  }
+
+  const combina = (pilha, tamanho) => !tamanho || pilha.dataset.albumTamanho === tamanho;
+
+  function anunciarFiltro(tamanho, visiveis) {
+    const albuns = `${visiveis} ${visiveis === 1 ? 'álbum' : 'álbuns'}`;
+    filtroStatus.textContent = tamanho ? `${albuns} no tamanho ${tamanho}` : `Mostrando todos os ${albuns}`;
+  }
+
+  function filtrar(tamanho) {
+    const pilhas = Array.from(mesa.children);
+    const anterior = estado.tamanho;
+    estado.tamanho = tamanho;
+
+    filtro.querySelectorAll('[data-tamanho]').forEach((botao) => {
+      botao.setAttribute('aria-pressed', String(botao.dataset.tamanho === tamanho));
+    });
+
+    pilhas.forEach((pilha) => {
+      pilha.getAnimations().forEach((animacao) => {
+        if (!(window.CSSAnimation && animacao instanceof CSSAnimation)) animacao.cancel();
+      });
+      pilha.hidden = !combina(pilha, anterior);
+    });
+
+    const saem = pilhas.filter((pilha) => !pilha.hidden && !combina(pilha, tamanho));
+    const ficam = pilhas.filter((pilha) => combina(pilha, tamanho));
+    anunciarFiltro(tamanho, ficam.length);
+
+    if (reduzir.matches) {
+      pilhas.forEach((pilha) => { pilha.hidden = !combina(pilha, tamanho); });
+      return;
+    }
+
+    const antes = new Map(ficam.filter((pilha) => !pilha.hidden).map((pilha) => [pilha, pilha.getBoundingClientRect()]));
+    const sumir = saem.map((pilha) => pilha.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-out', fill: 'forwards' }));
+
+    Promise.all(sumir.map((animacao) => animacao.finished)).then(() => {
+      if (estado.tamanho !== tamanho) return;
+      saem.forEach((pilha) => { pilha.hidden = true; });
+      sumir.forEach((animacao) => animacao.cancel());
+      ficam.forEach((pilha) => { pilha.hidden = false; });
+
+      ficam.forEach((pilha) => {
+        const de = antes.get(pilha);
+        if (!de) {
+          if (!mesa.hasAttribute('data-cair') || pilha.classList.contains('caiu')) {
+            pilha.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, easing: 'ease-out' });
+          }
+          return;
+        }
+        const para = pilha.getBoundingClientRect();
+        const dx = de.left - para.left;
+        const dy = de.top - para.top;
+        if (!dx && !dy) return;
+        pilha.animate(
+          [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }],
+          { duration: 350, easing: SUAVE }
+        );
+      });
+    }, () => {});
   }
 
   function medidas(foto) {
@@ -245,8 +317,9 @@
     contador.textContent = `${n} / ${total}`;
     Array.from(tira.children).forEach((botao, i) => botao.setAttribute('aria-current', String(i === indice)));
     rolarTira(indice);
+    const rotulo = album.modelo ? `${album.modelo} ${album.tamanho}` : album.titulo;
     quero.href = window.lunnaWhatsapp(
-      `Olá! Vim pelo site e gostei da foto ${n} do álbum ${album.titulo}. Pode me passar tamanhos e valores?`
+      `Olá! Vim pelo site e gostei da foto ${n} do álbum ${rotulo}. Ainda tem? Pode me passar o valor?`
     );
     history.replaceState(null, '', `#provador/${album.slug}/${n}`);
     preCarregar(album, indice);
@@ -284,8 +357,8 @@
     estado.fechando = false;
     palco.replaceChildren();
 
-    dialogo.setAttribute('aria-label', album.titulo);
-    titulo.textContent = album.titulo;
+    dialogo.setAttribute('aria-label', nomeDe(album));
+    titulo.textContent = nomeDe(album);
     const varias = album.fotos.length > 1;
     botaoAnterior.hidden = !varias;
     botaoProxima.hidden = !varias;
@@ -335,8 +408,9 @@
       estado.fechando = false;
       estado.camada = null;
       palco.replaceChildren();
-      history.replaceState(null, '', '#provador');
-      if (estado.retorno && estado.retorno.isConnected) estado.retorno.focus();
+      history.replaceState(null, '', '#colecoes');
+      const retorno = estado.retorno;
+      if (retorno && retorno.isConnected && !retorno.hidden) retorno.focus();
     });
 
     dialogo.addEventListener('keydown', (evento) => {
@@ -435,7 +509,14 @@
     mesa.append(...albuns.map(montarPilha));
     montarFaixa(albuns);
     mesa.hidden = false;
+    filtro.hidden = false;
+    faixaTitulo.hidden = false;
     faixa.hidden = false;
+
+    filtro.addEventListener('click', (evento) => {
+      const botao = evento.target.closest('[data-tamanho]');
+      if (botao && botao.dataset.tamanho !== estado.tamanho) filtrar(botao.dataset.tamanho);
+    });
 
     animarQueda();
     ligarMostruario();
