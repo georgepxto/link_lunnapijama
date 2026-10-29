@@ -1436,7 +1436,7 @@ p {
   margin-top: 24px;
 }
 
-body:has(.mostruario[open]) {
+html.mostruario-aberto {
   overflow: hidden;
 }
 
@@ -1444,38 +1444,30 @@ body:has(.mostruario[open]) {
   position: fixed;
   inset: 0;
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   max-width: none;
   max-height: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   border: 0;
-  background: transparent;
+  background: #231a2e;
   color: #fff;
 }
 
 .mostruario[open] {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  grid-template-areas:
-    'info acoes'
-    'palco palco'
-    'rodape rodape';
+  animation: mostruario-surgir 0.25s ease-out;
 }
 
 .mostruario::backdrop {
-  background: rgba(35, 26, 46, 0.94);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
+  background: #231a2e;
 }
 
-.mostruario[open]::backdrop {
-  animation: mostruario-surgir 0.3s ease-out;
-}
-
-.mostruario[open] > :not(.mostruario__palco) {
+.mostruario[open] > .mostruario__topo,
+.mostruario[open] > .mostruario__rodape,
+.mostruario[open] .mostruario__seta {
   animation: mostruario-surgir 0.35s ease-out 0.15s backwards;
 }
 
@@ -1483,10 +1475,17 @@ body:has(.mostruario[open]) {
   from { opacity: 0; }
 }
 
+.mostruario__topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 8px max(20px, env(safe-area-inset-left));
+}
+
 .mostruario__info {
-  grid-area: info;
   min-width: 0;
-  padding: max(16px, env(safe-area-inset-top)) 12px 8px max(20px, env(safe-area-inset-left));
+  padding-top: 6px;
 }
 
 .mostruario__titulo {
@@ -1508,14 +1507,10 @@ body:has(.mostruario[open]) {
   font-variant-numeric: tabular-nums;
 }
 
-.mostruario__acoes {
-  grid-area: acoes;
-  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 0 0;
-}
-
 .mostruario__fechar,
 .mostruario__seta {
   display: flex;
+  flex: none;
   align-items: center;
   justify-content: center;
   width: 48px;
@@ -1532,13 +1527,28 @@ body:has(.mostruario[open]) {
   background-color: rgba(255, 255, 255, 0.24);
 }
 
+.mostruario__seta {
+  display: none;
+}
+
 .mostruario :focus-visible {
   outline-color: var(--rosa);
 }
 
+.mostruario__centro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 0 12px;
+}
+
 .mostruario__palco {
-  grid-area: palco;
-  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
   min-height: 0;
   touch-action: pan-y pinch-zoom;
   user-select: none;
@@ -1546,14 +1556,21 @@ body:has(.mostruario[open]) {
 }
 
 .mostruario__camada {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  container-type: size;
   pointer-events: none;
 }
 
 .mostruario__moldura {
+  width: min(100cqw, 100cqh * var(--proporcao, 0.8));
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: var(--proporcao, 0.8);
   overflow: hidden;
   border-radius: 6px;
   background-position: center;
@@ -1565,7 +1582,8 @@ body:has(.mostruario[open]) {
 .mostruario__moldura img {
   width: 100%;
   height: 100%;
-  max-width: none;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   animation: zoom-lento 8s ease-in-out infinite alternate;
   -webkit-user-drag: none;
@@ -1576,54 +1594,22 @@ body:has(.mostruario[open]) {
   to   { transform: scale(1.06); }
 }
 
-.mostruario__seta {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  margin-top: -24px;
-  background: rgba(35, 26, 46, 0.5);
-}
-
-.mostruario__seta--anterior { left: max(8px, env(safe-area-inset-left)); }
-.mostruario__seta--proxima  { right: max(8px, env(safe-area-inset-right)); }
-
 .mostruario__rodape {
-  grid-area: rodape;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 12px;
   min-width: 0;
-  padding-top: 12px;
-}
-
-.mostruario__quero {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 56px;
-  padding: 0 24px;
-  border-radius: 20px;
-  background: var(--wpp);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 800;
-  text-decoration: none;
-  box-shadow: 0 12px 28px -12px rgba(29, 130, 56, 0.8);
-  transition: background-color var(--transicao);
-}
-
-.mostruario__quero:hover {
-  background-color: var(--wpp-hover);
+  padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
 }
 
 .mostruario__tira {
-  position: relative;
   display: flex;
   gap: 8px;
   width: 100%;
-  padding: 10px 20px max(14px, env(safe-area-inset-bottom));
+  padding: 5px;
   overflow-x: auto;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
 }
 
@@ -1636,14 +1622,15 @@ body:has(.mostruario[open]) {
 
 .mostruario__mini {
   flex: none;
-  width: 64px;
-  height: 80px;
+  width: 52px;
+  height: 64px;
   padding: 0;
   overflow: hidden;
   border: 0;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.08);
   opacity: 0.55;
+  scroll-snap-align: center;
   transition: opacity var(--transicao);
 }
 
@@ -1664,45 +1651,71 @@ body:has(.mostruario[open]) {
   object-position: center 25%;
 }
 
-@media (min-width: 1000px) {
-  .mostruario[open] {
-    grid-template-columns: clamp(200px, 20vw, 300px) minmax(0, 1fr) clamp(200px, 20vw, 300px);
-    grid-template-rows: minmax(0, 1fr) auto;
-    grid-template-areas:
-      'info palco acoes'
-      'rodape rodape rodape';
+.mostruario__quero {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 20px;
+  background: var(--wpp);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: background-color var(--transicao);
+}
+
+.mostruario__quero:hover {
+  background-color: var(--wpp-hover);
+}
+
+@media (min-width: 600px) {
+  .mostruario__centro {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr) 48px;
+    align-items: center;
+    gap: clamp(12px, 3vw, 32px);
+    padding: 0 clamp(16px, 3vw, 32px);
   }
 
-  .mostruario__info {
-    padding: 40px 24px 0 40px;
+  .mostruario__seta {
+    display: flex;
+  }
+
+  .mostruario__mini {
+    width: 64px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 900px) {
+  .mostruario__topo {
+    padding: 24px 32px 12px 40px;
   }
 
   .mostruario__titulo {
     font-size: 2.5rem;
   }
+}
 
-  .mostruario__palco {
-    margin-top: 32px;
+@media (max-height: 640px) {
+  .mostruario__titulo,
+  .mostruario__tira {
+    display: none;
   }
 
-  .mostruario__acoes {
-    display: flex;
-    justify-content: flex-end;
-    padding: 32px 32px 0 0;
+  .mostruario__info {
+    align-self: center;
+    padding-top: 0;
   }
 
-  .mostruario__seta--anterior { left: 32px; }
-  .mostruario__seta--proxima  { right: 32px; }
-
-  .mostruario__rodape {
-    position: relative;
-    padding-top: 16px;
-  }
-
-  .mostruario__quero {
-    position: absolute;
-    right: 32px;
-    bottom: calc(100% + 8px);
+  .mostruario__contador {
+    margin-top: 0;
   }
 }
 

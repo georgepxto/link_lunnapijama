@@ -217,19 +217,6 @@
     }, () => {});
   }
 
-  function medidas(foto) {
-    const largura = Math.min(window.innerWidth * 0.92, palco.clientWidth);
-    const altura = Math.min(window.innerHeight * 0.86, palco.clientHeight);
-    const escala = Math.min(largura / foto.w, altura / foto.h);
-    return { width: Math.round(foto.w * escala), height: Math.round(foto.h * escala) };
-  }
-
-  function ajustar(moldura, foto) {
-    const { width, height } = medidas(foto);
-    moldura.style.width = `${width}px`;
-    moldura.style.height = `${height}px`;
-  }
-
   function criarCamada(album, indice) {
     const foto = album.fotos[indice];
     const moldura = el('div', { class: 'mostruario__moldura' }, [
@@ -245,7 +232,7 @@
     ]);
     moldura.style.backgroundColor = foto.cor;
     moldura.style.backgroundImage = `url("${foto.mini}")`;
-    ajustar(moldura, foto);
+    moldura.style.setProperty('--proporcao', (foto.w / foto.h).toFixed(4));
     return el('div', { class: 'mostruario__camada' }, [moldura]);
   }
 
@@ -364,6 +351,7 @@
     botaoProxima.hidden = !varias;
     montarTira(album);
 
+    document.documentElement.classList.add('mostruario-aberto');
     if (!dialogo.open) dialogo.showModal();
     mostrar(indice, 0);
 
@@ -408,6 +396,7 @@
       estado.fechando = false;
       estado.camada = null;
       palco.replaceChildren();
+      document.documentElement.classList.remove('mostruario-aberto');
       history.replaceState(null, '', '#colecoes');
       const retorno = estado.retorno;
       if (retorno && retorno.isConnected && !retorno.hidden) retorno.focus();
@@ -469,9 +458,7 @@
     });
 
     window.addEventListener('resize', () => {
-      if (!dialogo.open || !estado.camada) return;
-      ajustar(estado.camada.firstElementChild, estado.album.fotos[estado.indice]);
-      rolarTira(estado.indice);
+      if (dialogo.open) rolarTira(estado.indice);
     });
   }
 

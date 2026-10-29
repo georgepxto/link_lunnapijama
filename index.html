@@ -191,28 +191,30 @@
       </div>
 
       <dialog class="mostruario" data-mostruario aria-label="Álbum">
-        <div class="mostruario__info">
-          <p class="mostruario__titulo" data-mostruario-titulo></p>
-          <p class="mostruario__contador" data-mostruario-contador aria-live="polite"></p>
-        </div>
-        <div class="mostruario__acoes">
+        <div class="mostruario__topo">
+          <div class="mostruario__info">
+            <p class="mostruario__titulo" data-mostruario-titulo></p>
+            <p class="mostruario__contador" data-mostruario-contador aria-live="polite"></p>
+          </div>
           <button class="mostruario__fechar" type="button" data-mostruario-fechar aria-label="Fechar álbum" autofocus>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
           </button>
         </div>
-        <div class="mostruario__palco" data-mostruario-palco></div>
-        <button class="mostruario__seta mostruario__seta--anterior" type="button" data-mostruario-anterior aria-label="Foto anterior">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-esq" /></svg>
-        </button>
-        <button class="mostruario__seta mostruario__seta--proxima" type="button" data-mostruario-proxima aria-label="Próxima foto">
-          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-dir" /></svg>
-        </button>
+        <div class="mostruario__centro">
+          <button class="mostruario__seta" type="button" data-mostruario-anterior aria-label="Foto anterior">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-esq" /></svg>
+          </button>
+          <div class="mostruario__palco" data-mostruario-palco></div>
+          <button class="mostruario__seta" type="button" data-mostruario-proxima aria-label="Próxima foto">
+            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-dir" /></svg>
+          </button>
+        </div>
         <div class="mostruario__rodape">
+          <div class="mostruario__tira" data-mostruario-tira></div>
           <a class="mostruario__quero" data-mostruario-quero target="_blank" rel="noopener noreferrer">
             <svg width="22" height="22" fill="currentColor" aria-hidden="true"><use href="#i-whatsapp" /></svg>
             Quero este <span aria-hidden="true">✦</span>
           </a>
-          <div class="mostruario__tira" data-mostruario-tira></div>
         </div>
       </dialog>
     </section>
