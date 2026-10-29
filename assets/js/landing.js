@@ -13,6 +13,8 @@
   const linkWhatsapp = (mensagem) =>
     `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensagem)}`;
 
+  window.lunnaWhatsapp = linkWhatsapp;
+
   function formatarTelefone(numero) {
     const local = numero.startsWith('55') ? numero.slice(2) : numero;
     if (local.length < 10) return numero;

@@ -71,7 +71,7 @@
           <a class="nav__link" href="#colecoes">Coleções</a>
           <a class="nav__link" href="#sobre">Sobre</a>
           <a class="nav__link" href="#como-comprar">Como comprar</a>
-          <a class="nav__link" href="#instagram">Instagram</a>
+          <a class="nav__link" href="#provador">Provador</a>
         </div>
       </nav>
 
@@ -302,23 +302,50 @@
       </a>
     </section>
 
-    <section class="secao instagram" id="instagram" aria-labelledby="h-insta">
-      <div class="instagram__topo">
-        <div class="instagram__intro">
-          <h2 class="titulo titulo--medio" id="h-insta">No Instagram</h2>
-          <p class="texto">Novidades, provadores e os bastidores da loja em @lunnapijama.</p>
-        </div>
+    <section class="secao provador" id="provador" aria-labelledby="h-provador">
+      <div class="provador__intro">
+        <h2 class="titulo titulo--grande" id="h-provador">O <span class="script">provador</span></h2>
+        <p class="texto">Nossas coleções em fotos de verdade. Passe o dedo, abra o álbum e escolha a sua.</p>
+      </div>
+
+      <div class="provador__mesa" data-provador-mesa hidden></div>
+
+      <div class="faixa" data-provador-faixa hidden>
+        <div class="faixa__trilho"></div>
+      </div>
+
+      <div class="provador__fim">
         <a class="btn-rosa btn-rosa--ig" href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer">
           <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-instagram" /></svg>
           Seguir @lunnapijama
         </a>
       </div>
-      <div class="galeria">
-        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Pijama longo ovelhinha — ver no Instagram"><img src="assets/img/longo-ovelhinha-sala.webp" alt="" width="610" height="823" loading="lazy" /></a>
-        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Short doll corações — ver no Instagram"><img src="assets/img/shortdoll-coracoes.webp" alt="" width="821" height="857" loading="lazy" /></a>
-        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Conjunto moletom corações — ver no Instagram"><img src="assets/img/moletom-coracoes.webp" alt="" width="796" height="816" loading="lazy" /></a>
-        <a href="https://instagram.com/lunnapijama" target="_blank" rel="noopener noreferrer" aria-label="Pijama longo ovelhinha com caneca — ver no Instagram"><img src="assets/img/longo-ovelhinha-caneca.webp" alt="" width="610" height="839" loading="lazy" /></a>
-      </div>
+
+      <dialog class="mostruario" data-mostruario aria-label="Álbum">
+        <div class="mostruario__info">
+          <p class="mostruario__titulo" data-mostruario-titulo></p>
+          <p class="mostruario__contador" data-mostruario-contador aria-live="polite"></p>
+        </div>
+        <div class="mostruario__acoes">
+          <button class="mostruario__fechar" type="button" data-mostruario-fechar aria-label="Fechar álbum" autofocus>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+        </div>
+        <div class="mostruario__palco" data-mostruario-palco></div>
+        <button class="mostruario__seta mostruario__seta--anterior" type="button" data-mostruario-anterior aria-label="Foto anterior">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-esq" /></svg>
+        </button>
+        <button class="mostruario__seta mostruario__seta--proxima" type="button" data-mostruario-proxima aria-label="Próxima foto">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-seta-dir" /></svg>
+        </button>
+        <div class="mostruario__rodape">
+          <a class="mostruario__quero" data-mostruario-quero target="_blank" rel="noopener noreferrer">
+            <svg width="22" height="22" fill="currentColor" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+            Quero este <span aria-hidden="true">✦</span>
+          </a>
+          <div class="mostruario__tira" data-mostruario-tira></div>
+        </div>
+      </dialog>
     </section>
 
   </main>
@@ -338,6 +365,7 @@
           <a href="#colecoes">Coleções</a>
           <a href="#sobre">Sobre</a>
           <a href="#como-comprar">Como comprar</a>
+          <a href="#provador">Provador</a>
         </nav>
         <div class="rodape__coluna">
           <h2>Contato</h2>
@@ -355,5 +383,6 @@
   </a>
 
   <script src="assets/js/landing.js"></script>
+  <script src="assets/js/provador.js" defer></script>
 </body>
 </html>
