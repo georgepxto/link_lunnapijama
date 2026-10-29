@@ -141,19 +141,30 @@
     if (reduzir.matches || !('IntersectionObserver' in window)) return;
 
     mesa.dataset.cair = '';
-    const observador = new IntersectionObserver((entradas) => {
-      entradas
-        .filter((entrada) => entrada.isIntersecting)
-        .map((entrada) => entrada.target)
-        .sort((a, b) => a.style.getPropertyValue('--i') - b.style.getPropertyValue('--i'))
-        .forEach((pilha, ordem) => {
+
+    function comecar() {
+      let inicio = 250;
+      const observador = new IntersectionObserver((entradas) => {
+        const caindo = entradas
+          .filter((entrada) => entrada.isIntersecting)
+          .map((entrada) => entrada.target)
+          .sort((a, b) => a.style.getPropertyValue('--i') - b.style.getPropertyValue('--i'));
+        caindo.forEach((pilha, ordem) => {
           observador.unobserve(pilha);
-          pilha.style.setProperty('--atraso', `${ordem * 90}ms`);
+          pilha.style.setProperty('--atraso', `${inicio + ordem * 90}ms`);
           pilha.classList.add('caiu');
         });
-    }, { rootMargin: '0px 0px -10% 0px' });
+        if (caindo.length) inicio = 0;
+      }, { rootMargin: '0px 0px -10% 0px' });
 
-    mesa.querySelectorAll('.pilha').forEach((pilha) => observador.observe(pilha));
+      mesa.querySelectorAll('.pilha').forEach((pilha) => observador.observe(pilha));
+    }
+
+    if (window.lunnaAnima && !secao.classList.contains('visivel')) {
+      secao.addEventListener('anima:visivel', comecar, { once: true });
+    } else {
+      comecar();
+    }
   }
 
   const combina = (pilha, tamanho) => !tamanho || pilha.dataset.albumTamanho === tamanho;
