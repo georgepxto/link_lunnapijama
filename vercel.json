@@ -1,0 +1,10 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.lunnapijama.com.br" }],
+      "destination": "https://lunnapijama.com.br/:path*",
+      "statusCode": 301
+    }
+  ]
+}

@@ -28,7 +28,12 @@
 
   const modelos = (n) => `${n} ${n === 1 ? 'modelo' : 'modelos'}`;
   const nomeDe = (album) => (album.modelo ? `${album.modelo} · ${album.tamanho}` : album.titulo);
-  const textoAlt = (album, n) => `${album.titulo} — foto ${n}`;
+  const textoAlt = (album, n) => {
+    const nome = album.modelo
+      ? `Pijama feminino ${album.modelo.toLowerCase()}${album.tamanho ? `, tamanho ${album.tamanho}` : ''}`
+      : album.titulo;
+    return `${nome} — foto ${n} — Lunna Pijama`;
+  };
 
   function el(tag, atributos = {}, filhos = []) {
     const elemento = document.createElement(tag);
