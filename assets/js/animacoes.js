@@ -48,12 +48,12 @@
   function acompanharRolagem() {
     const foto = document.querySelector('.foto-hero__img img');
     const botao = document.querySelector('.wpp-flutuante');
+    if (botao) requestAnimationFrame(() => botao.classList.add('wpp-flutuante--visivel'));
     let agendado = false;
 
     function atualizar() {
       agendado = false;
       const y = window.scrollY;
-      if (botao) botao.classList.toggle('wpp-flutuante--visivel', y > 300);
       if (foto && !reduzir.matches) foto.style.translate = `0 ${Math.min(40, y * 0.08).toFixed(1)}px`;
     }
 
